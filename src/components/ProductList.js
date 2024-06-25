@@ -1,28 +1,32 @@
-import React from 'react';
-import { Button, Card } from 'react-bootstrap'; // Ensure the correct import for your Button component
+import React, { useContext } from 'react';
+import { Button, Card } from 'react-bootstrap';
+import CartContext from './store/cart-context';
 
 const ProductList = (props) => {
-  const productElements = [];
+  const cartContext = useContext(CartContext);
 
-  for (let i = props.start; i < props.end; i++) {
-    const product = props.productsArr[i];
-    productElements.push(
-      <React.Fragment key={i}>
-         <Card style={{ width: '15rem' }}>
-         <Card.Title>{product.title}</Card.Title>
+  const addToCartHandler = (product) => {
+    cartContext.addItem({
+      id: product.id,
+      title: product.title,
+      price: product.price,
+      imageUrl: product.imageUrl,
+      amount: 1 // Ensure each addition is counted correctly
+    });
+  };
+
+  const productElements = props.productsArr.map((product, index) => (
+    <Card key={index} style={{ width: '15rem', margin: '1rem' }}>
+      <Card.Title>{product.title}</Card.Title>
       <Card.Img variant="top" src={product.imageUrl} alt={product.title} />
-      <p>$ {product.price}</p>
       <Card.Body>
-        <Button variant="primary">Add To Cart</Button>
+        <p>$ {product.price}</p>
+        <Button variant="primary" onClick={() => addToCartHandler(product)}>Add To Cart</Button>
       </Card.Body>
     </Card>
+  ));
 
-        
-      </React.Fragment>
-    );
-  }
-
-  return <div>{productElements}</div>;
+  return <div className="d-flex flex-wrap">{productElements}</div>;
 };
 
 export default ProductList;

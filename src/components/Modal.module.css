@@ -1,0 +1,31 @@
+.backdrop{
+position:fixed;
+top:0;
+left: 0;
+width: auto;
+height: auto;
+z-index: 20;
+background-color: black;
+}
+
+.modal{
+position:absolute;
+top: 20vh;
+right: inherit;
+width:auto;
+background-color: aliceblue;
+padding: 1rem;
+box-shadow: none;
+z-index: 40;
+}
+
+@media (min-width:768px)  {
+    .modal{
+        width: 40rem;
+        left: 0%;
+    }
+}
+
+.content{
+
+}

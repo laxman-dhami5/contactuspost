@@ -1,53 +1,31 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { Card, Button } from 'react-bootstrap';
+import Modal from './Modal';
+import CartContext from './store/cart-context';
 
 const Cart = (props) => {
-    
-    const cartElements = [
-        {
-            title: 'Colors',
-            price: 100,
-            imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%201.png',
-            quantity: 2,
-        },
-        {
-            title: 'Black and white Colors',
-            price: 50,
-            imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%202.png',
-            quantity: 3,
-        },
-        {
-            title: 'Yellow and Black Colors',
-            price: 70,
-            imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%203.png',
-            quantity: 1,
-        }
-    ];
+  const cartCtx = useContext(CartContext);
 
-    const [arr, setArr] = useState(cartElements);
-
-    const removeItems = (index) => {
-        const newItems = arr.filter((_, i) => i !== index);
-        setArr(newItems);
-    }
-
-    return (
-        <>
-            <Button onClick={props.onClose} variant="danger">Close</Button>
-            {arr.map((ele, index) => (
-                <React.Fragment key={index}>
-                    <Card style={{ width: '15rem', margin: '10px' }}>
-                        <Card.Body>
-                            <Card.Title>{ele.title}</Card.Title>
-                            <Card.Img variant="top" src={ele.imageUrl} alt={ele.title} />
-                            <p>$ {ele.price}</p>
-                            <Button variant="danger" onClick={() => removeItems(index)}>Remove</Button>
-                        </Card.Body>
-                    </Card>
-                </React.Fragment>
-            ))}
-        </>
-    );
-}
+  return (
+    <Modal onClose={props.onClose}>
+      <Button onClick={props.onClose} variant="danger">X</Button>
+      {cartCtx.items.map((item, index) => (
+        <Card key={item.id} style={{ width: '10rem', margin: '1px' }}>
+          <Card.Body>
+            <Card.Title>{item.title}</Card.Title>
+            <Card.Img variant="top" src={item.imageUrl} alt={item.title} />
+            <p>$ {item.price}</p>
+            <p>Quantity: {item.amount}</p>
+            <Button variant="danger" onClick={() => cartCtx.removeItem(item.id)}>Remove</Button>
+          </Card.Body>
+        </Card>
+      ))}
+      <div className="d-flex justify-content-between mt-2">
+        <Button variant="success">Order</Button>
+        <Button variant="danger">Cancel</Button>
+      </div>
+    </Modal>
+  );
+};
 
 export default Cart;

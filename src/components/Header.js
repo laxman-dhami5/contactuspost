@@ -1,30 +1,22 @@
 import { Navbar, Container, Button, Row, Col } from 'react-bootstrap';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import Cart from './Cart';
 import CartContext from './store/cart-context';
 
 function Header(props) {
   const ctx = useContext(CartContext);
-  const [cartVisible, setCartVisible] = useState(false);
-
-  const showCartHandler = () => {
-    setCartVisible(true);
-  };
-
-  const hideCartHandler = () => {
-    setCartVisible(false);
-  };
+ 
 
   return (
     <>
       <Navbar expand="md" bg="dark" variant="dark">
         <Container fluid>
-          <Navbar.Brand href="/">Home</Navbar.Brand>
+          <Navbar.Brand href="http://localhost:3000/home">Home</Navbar.Brand>
           <Navbar.Brand href="/">Store</Navbar.Brand>
-          <Navbar.Brand href="/">About</Navbar.Brand>
-          <Button onClick={showCartHandler}>
-            Cart ({ctx.items.reduce((count, item) => count + item.amount, 0)})
-          </Button>
+          <Navbar.Brand href="http://localhost:3000/about">About</Navbar.Brand>
+          
+          <Button variant="outline-info" size='sm'  onClick={ctx.showCartHandler}>Cart
+             ({ctx.items.reduce((count, item) => count + item.amount, 0)})</Button>
         </Container>
       </Navbar>
       <Container fluid>
@@ -34,7 +26,7 @@ function Header(props) {
           </Col>
         </Row>
       </Container>
-      {cartVisible && <Cart onClose={hideCartHandler} />}
+      {ctx.cartVisible && <Cart onClose={ctx.hideCartHandler} />}
     </>
   );
 }

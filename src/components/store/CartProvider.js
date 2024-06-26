@@ -1,13 +1,22 @@
-import React, { useState } from 'react';
-import CartContext from './cart-context';
+import React, { useState } from "react";
+import CartContext from "./cart-context";
 
 const CartProvider = (props) => {
   const [items, setItems] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
+  const [cartVisible, setCartVisible] = useState(false);
+
+  const showCartHandler = () => {
+    setCartVisible(true);
+  };
+
+  const hideCartHandler = () => {
+    setCartVisible(false);
+  };
 
   const addItem = (item) => {
     setItems((prevItems) => {
-      const existingItemIndex = prevItems.findIndex(i => i.id === item.id);
+      const existingItemIndex = prevItems.map((i) => i.id === item.id);
       const existingItem = prevItems[existingItemIndex];
       let updatedItems;
 
@@ -30,13 +39,13 @@ const CartProvider = (props) => {
 
   const removeItem = (id) => {
     setItems((prevItems) => {
-      const existingItemIndex = prevItems.findIndex(i => i.id === id);
+      const existingItemIndex = prevItems.map((i) => i.id === id);
       const existingItem = prevItems[existingItemIndex];
       if (!existingItem) return prevItems;
 
       let updatedItems;
       if (existingItem.amount === 1) {
-        updatedItems = prevItems.filter(i => i.id !== id);
+        updatedItems = prevItems.filter((i) => i.id !== id);
       } else {
         const updatedItem = {
           ...existingItem,
@@ -49,16 +58,23 @@ const CartProvider = (props) => {
       return updatedItems;
     });
 
-    setTotalAmount((prevTotal) => prevTotal - items.find(i => i.id === id).price);
+    setTotalAmount(
+      (prevTotal) => prevTotal - items.find((i) => i.id === id).price
+    );
   };
 
   return (
-    <CartContext.Provider value={{
-      items: items,
-      totalAmount: totalAmount,
-      addItem: addItem,
-      removeItem: removeItem,
-    }}>
+    <CartContext.Provider
+      value={{
+        items: items,
+        totalAmount: totalAmount,
+        addItem: addItem,
+        removeItem: removeItem,
+        showCartHandler :showCartHandler,
+        hideCartHandler:hideCartHandler,
+        cartVisible:cartVisible
+      }}
+    >
       {props.children}
     </CartContext.Provider>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../Header';
+
 import { Card, Row, Col, Button } from 'react-bootstrap';
 
 const Home = () => {
@@ -13,7 +13,7 @@ const Home = () => {
 
   return (
     <>
-      <Header />
+      
       <Row className="justify-content-md-center" xs={2}>
         <Col className="mt-4">
           {concertsInIndia.map((ele, index) => (
@@ -26,9 +26,9 @@ const Home = () => {
           ))}
         </Col>
       </Row>
-      <Card className="mt-5" style={{ height: '18rem', background: '#ADD8E6' }}>
+      <Card className="mt-3" style={{ height: '6rem', background: '#ADD8E6' }}>
         <Card.Footer className="display-1">
-          <p align="center">The Generics</p>
+          <h2 align="center">The Generics</h2>
         </Card.Footer>
       </Card>
     </>

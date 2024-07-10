@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
+import { Container,Card } from 'react-bootstrap';
 import ProductList from './ProductList'; 
 
 const Items = () => {
@@ -33,7 +33,13 @@ const Items = () => {
   return (
     <Container>
       <ProductList productsArr={productsArr} />
+      <Card className="mt-3" style={{ height: '6rem', background: '#ADD8E6' }}>
+        <Card.Footer className="display-1">
+          <h2 align="center">The Generics</h2>
+        </Card.Footer>
+      </Card>
     </Container>
+    
   );
 };
 

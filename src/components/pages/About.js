@@ -1,12 +1,12 @@
 import React from 'react';
-import Header from '../Header';
+
 import { Card, Col, Row } from 'react-bootstrap';
 import image from '../../assets/image.jpg'
 
 const About = () => {
   return (
     <>
-      <Header />
+      
       <Row>
         <h3 align='center'>About</h3>
         <Col>

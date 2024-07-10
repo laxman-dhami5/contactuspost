@@ -2,21 +2,32 @@ import { Navbar, Container, Button, Row, Col } from 'react-bootstrap';
 import React, { useContext } from 'react';
 import Cart from './Cart';
 import CartContext from './store/cart-context';
+import { NavLink } from 'react-router-dom';
 
 function Header(props) {
   const ctx = useContext(CartContext);
- 
 
   return (
     <>
-      <Navbar expand="md" bg="dark" variant="dark">
-        <Container fluid>
-          <Navbar.Brand href="http://localhost:3000/home">Home</Navbar.Brand>
-          <Navbar.Brand href="/">Store</Navbar.Brand>
-          <Navbar.Brand href="http://localhost:3000/about">About</Navbar.Brand>
-          
-          <Button variant="outline-info" size='sm'  onClick={ctx.showCartHandler}>Cart
-             ({ctx.items.reduce((count, item) => count + item.amount, 0)})</Button>
+      <Navbar bg='black' expand='sm' variant='light'>
+        <Container>
+          <Navbar.Brand style={{ color: 'white' }}>
+            <NavLink to="/home" style={{ color: 'white' }}>Home</NavLink>
+          </Navbar.Brand>
+          <Navbar.Brand style={{ color: 'white' }}>
+            <NavLink to="/store" style={{ color: 'white' }}>Store</NavLink>
+          </Navbar.Brand>
+          <Navbar.Brand style={{ color: 'white' }}>
+            <NavLink to="/about" style={{ color: 'white' }}>About</NavLink>
+          </Navbar.Brand>
+          <Navbar.Brand style={{ color: 'white' }}>
+            <NavLink to="/contact-us" style={{ color: 'white' }}>Contact Us </NavLink>
+          </Navbar.Brand>
+          <Navbar.Brand style={{ color: 'white' }}>
+            <Button variant="outline-info" size='sm' onClick={ctx.showCartHandler}>Cart
+              ({ctx.items.reduce((count, item) => count + item.amount, 0)})
+            </Button>
+          </Navbar.Brand>
         </Container>
       </Navbar>
       <Container fluid>
